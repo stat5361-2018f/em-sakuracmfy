@@ -102,14 +102,14 @@ regmix_em <- function(y, xmat, pi.init, beta.init, sigma.init, control) {
     }
     
     
-    ###pi^(k+1)
+  ###pi^(k+1)
     p_i <- colMeans(P)
     
-    ###beta^(k+1)
+  ###beta^(k+1)
     for (j in 1:length(pi.init)){
       beta[ ,j] <- solve(t(xmat) %*% diag(P[, j]) %*% xmat) %*% t(xmat) %*% diag(P[, j]) %*% y
     }   
-      ###sigma^2(k+1)
+  ###sigma^2(k+1)
       sigma <- sqrt(sum(P * (y %*% t(rep(1, length(pi.init))) - xmat %*% beta.init)^2)/n)
       if (sum(abs(pi.init-p_i))+sum(abs(beta.init-beta))+abs(sigma.init-sigma) < control$tol)
         break
